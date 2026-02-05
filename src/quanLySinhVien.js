@@ -1,9 +1,14 @@
-let students = [
+let students =JSON.parse(localStorage.getItem("students")) || [
     { name: "Nguyễn Văn Anh", class: "CNTT " },
     { name: "Trần Thị Bảo", class: "Kế toán " },
     { name: "Lê Minh Cường", class: "Quản trị Kinh doanh" },
     { name: "Phạm Hồng Duyên", class: "Ngôn ngữ Anh" }
 ];
+
+function savedStudents() {
+    localStorage.setItem("students", JSON.stringify(students));
+}
+
 
 function renderStudents() {
     const list = document.getElementById("studentList");
@@ -43,6 +48,8 @@ function saveStudent() {
 
     document.getElementById("fullname").value = "";
     document.getElementById("class").value = "";
+
+    savedStudents();
     renderStudents();
 }
 
@@ -50,6 +57,7 @@ function saveStudent() {
 function deleteStudent(index) {
     if (confirm("Bạn có chắc muốn xóa?")) {
         students.splice(index, 1);
+        savedStudents();
         renderStudents();
     }
 }
